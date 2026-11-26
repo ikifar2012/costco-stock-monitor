@@ -1,0 +1,12 @@
+{
+  "name": "costco-stock-monitor",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/monitor.ts",
+    "check": "bun run src/monitor.ts --check",
+    "discover": "bun run src/monitor.ts --discover-client-id",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": { "@types/bun": "1.3.11", "typescript": "5.9.3" }
+}

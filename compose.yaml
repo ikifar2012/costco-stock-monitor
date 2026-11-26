@@ -1,0 +1,27 @@
+services:
+  monitor:
+    build: .
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    environment:
+      PRODUCT_NAME: ${PRODUCT_NAME:?Set PRODUCT_NAME}
+      PRODUCT_URL: ${PRODUCT_URL:?Set PRODUCT_URL}
+      COSTCO_ITEM_NUMBER: ${COSTCO_ITEM_NUMBER:?Set COSTCO_ITEM_NUMBER}
+      COSTCO_WAREHOUSE_NO: ${COSTCO_WAREHOUSE_NO:?Set COSTCO_WAREHOUSE_NO}
+      COSTCO_FFM_CENTER: ${COSTCO_FFM_CENTER:?Set COSTCO_FFM_CENTER}
+      PROMOTION_END_DATE: ${PROMOTION_END_DATE:-}
+      HARK_WEBHOOK_URL: ${HARK_WEBHOOK_URL:?Set HARK_WEBHOOK_URL}
+      CHECK_INTERVAL_SECONDS: ${CHECK_INTERVAL_SECONDS:-60}
+      REQUEST_TIMEOUT_SECONDS: ${REQUEST_TIMEOUT_SECONDS:-15}
+      COSTCO_CLIENT_ID: ${COSTCO_CLIENT_ID:-e442e6e6-2602-4a39-937b-8b28b4457ed3}
+      DATABASE_PATH: /data/monitor.sqlite
+    volumes:
+      - monitor-data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"
+volumes:
+  monitor-data:
